@@ -55,9 +55,11 @@ passport.deserializeUser(function(id, cb) {
 /* MONGOOSE SETUP */
 
 const mongoose = require('mongoose');
-//var mongoDB = 'mongodb+srv://drewradley:Robert1313@cluster0-xfvkm.mongodb.net/local_library?retryWrites=true&w=majority'
 var dev_db_url = `mongodb+srv://drewradley:${process.env.MONGO_PW}@cluster0-xfvkm.mongodb.net/local_library?retryWrites=true&w=majority`;
-mongoose.connect(dev_db_url, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
+
+mongoose.connect(mongoDB, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 
 const Schema = mongoose.Schema;
 const UserDetail = new Schema({
